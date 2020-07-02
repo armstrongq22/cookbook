@@ -14,11 +14,4 @@ const RecipePostSchema = new Schema({
 // Model
 const RecipePost = mongoose.model('RecipePost', RecipePostSchema);
 
-const data = {
-    'title': 'Orange Chicken',
-    'body': 'Tastes good!'
-};
-const newRecipe = new RecipePost(data);
-newRecipe.save();
-
 module.exports = RecipePost;
