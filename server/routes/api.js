@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const RecipePost = require('../models/recipePost');
 
-router.get('/', (req, res) => {
+// Retrieve recipe posts from DB
+router.get('/posts', (req, res) => {
 
     RecipePost.find({})
         .then((data) => {
-            console.log('Data: ' + data);
+            //console.log('Data: ' + data);
             res.json(data);
         })
         .catch((error) => {
@@ -14,6 +15,7 @@ router.get('/', (req, res) => {
         });
 });
 
+// Post new recipe post to DB
 router.post('/save', (req, res) => {
     const data = req.body;
 

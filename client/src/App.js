@@ -1,19 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
 
 function App() {
-
-  const [state, setState] = React.useState({
+  // recipe posts state and input state
+  const [recipePosts, setRecipePosts] = React.useState([]);
+  const [newPost, setNewPost] = React.useState({
     title: '',
     body: ''
   });
 
+  // Mounts current recipe posts on load
+  useEffect(() => {
+    return getRecipePost();
+  }, []);
+
+  // Updates recipe posts state to DB
+  function getRecipePost() {
+    axios.get('/api/posts')
+      .then((res) => {
+        const data = res.data;
+        setRecipePosts(data);
+        console.log('Posts have been retrieved');
+      })
+      .catch(() => {
+        console.log('An error has occurred retrieving the posts');
+      });
+  };
+
+  // Displays posts in recipe posts state
+  function displayPosts(posts) {
+    if(!posts.length) return null;
+
+    return posts.slice(0).reverse().map((post, index) => (
+      <div key={index}>
+        <h3>{post.title}</h3>
+        <p>{post.body}</p>
+      </div>
+    ));
+  }
+
+  // Updates input state
   function handleChange(event) {
     const target = event.target;
     const {name, value} = target;
 
-    setState((prevValue) => {
+    setNewPost((prevValue) => {
       return {
         ...prevValue,
         [name]: value
@@ -21,35 +53,39 @@ function App() {
     });
   };
 
+  // Submits input state as a new recipe
   function submit(event) {
     event.preventDefault();
 
     const payload = {
-      title: state.title,
-      body: state.body
+      title: newPost.title,
+      body: newPost.body
     };
 
     axios({
-      url: '/save',
+      url: '/api/save',
       method: 'POST',
       data: payload
     })
     .then(() => {
       console.log('Data has been sent to server');
       resetInput();
+      getRecipePost();
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
+  // Resets input state after submission
   function resetInput() {
-    setState({
+    setNewPost({
       title: "",
       body: ''
     });
   };
 
+  // Renders component
   return (
     <div>
       <h2>Welcome</h2>
@@ -59,7 +95,7 @@ function App() {
             type='text'
             name='title'
             placeholder='title'
-            value={state.title}
+            value={newPost.title}
             onChange={handleChange}
           />
         </div>
@@ -69,12 +105,15 @@ function App() {
             placeholder='body'
             cols='30'
             rows='10'
-            value={state.body}
+            value={newPost.body}
             onChange={handleChange}
           />
         </div>
         <button>Submit</button>
       </form>
+      <div>
+        {displayPosts(recipePosts)}
+      </div>
     </div>
   )
 }

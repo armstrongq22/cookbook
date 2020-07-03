@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
-const routes = require('./routes/api');
+const api_routes = require('./routes/api');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -22,7 +22,7 @@ app.use(express.urlencoded({extended: false}));
 
 // HTTP request logger
 app.use(morgan('tiny'));
-app.use('/', routes);
+app.use('/api', api_routes);
 
 
 app.listen(PORT, console.log('Listening on ' + PORT));
