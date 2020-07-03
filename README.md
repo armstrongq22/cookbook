@@ -1,2 +1,2 @@
 # CookBook
-A social media web application that allows users to share their favorite recipes!
+A web application that allows users to share their favorite recipes!
