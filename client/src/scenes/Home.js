@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import RecipePost from '../components/RecipePost';
-import CreatePost from '../components/CreatePost';
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
+import Footer from '../components/Footer';
+
+const postsStyle = {
+  position: 'absolute', left: '35%', top: '20%',
+  marginBottom: '100px'
+};
 
 
 function Home() {
@@ -37,7 +42,9 @@ function Home() {
           id={index}
           key={index}
           title={post.title}
+          date={post.date}
           body={post.body}
+          instructions={post.instructions}
         />)
     );
     
@@ -48,10 +55,10 @@ function Home() {
   return (
     <div>
       <PrimarySearchAppBar />
-      <CreatePost refresh={getRecipePost} />
-      <div>
+      <div style={postsStyle}>
         {displayPosts(recipePosts)}
       </div>
+      <Footer />
     </div>
   )
 }

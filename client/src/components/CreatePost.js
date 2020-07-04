@@ -5,7 +5,8 @@ function CreatePost(props) {
     // Input state
     const [newPost, setNewPost] = React.useState({
         title: '',
-        body: ''
+        body: '',
+        instructions: ''
     });
 
     // Updates input state
@@ -27,7 +28,8 @@ function CreatePost(props) {
 
         const payload = {
             title: newPost.title,
-            body: newPost.body
+            body: newPost.body,
+            instructions: newPost.instructions
         };
 
         axios({
@@ -49,7 +51,8 @@ function CreatePost(props) {
     function resetInput() {
         setNewPost({
             title: "",
-            body: ''
+            body: '',
+            instructions: ""
         });
     };
 
@@ -62,6 +65,7 @@ function CreatePost(props) {
                     placeholder='title'
                     value={newPost.title}
                     onChange={handleChange}
+                    required
                 />
             </div>
             <div className='form-input'>
@@ -69,9 +73,21 @@ function CreatePost(props) {
                     name='body'
                     placeholder='body'
                     cols='30'
-                    rows='10'
+                    rows='5'
                     value={newPost.body}
                     onChange={handleChange}
+                    required
+                />
+            </div>
+            <div className='form-input'>
+                <textarea 
+                    name='instructions'
+                    placeholder='instructions'
+                    cols='30'
+                    rows='10'
+                    value={newPost.instructions}
+                    onChange={handleChange}
+                    required
                 />
             </div>
             <button>Submit</button>

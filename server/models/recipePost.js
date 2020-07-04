@@ -5,9 +5,10 @@ const Schema = mongoose.Schema;
 const RecipePostSchema = new Schema({
     title: String,
     body: String,
+    instructions: String,
     date: {
         type: String,
-        default: Date.now()
+        default: new Date().toISOString().slice(0,10)
     }
 });
 

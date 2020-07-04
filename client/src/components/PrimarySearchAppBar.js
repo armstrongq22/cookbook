@@ -8,12 +8,14 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-//import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import StarIcon from '@material-ui/icons/Star';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import CreateIcon from '@material-ui/icons/Create';
 import MoreIcon from '@material-ui/icons/MoreVert';
+
 
 
 import {Link} from 'react-router-dom';
@@ -147,10 +149,16 @@ function PrimarySearchAppBar() {
       <MenuItem>
         <IconButton aria-label="show 4 new saved recipes" color="inherit">
           <Badge badgeContent={4} color="secondary">
-            <StarIcon />
+            <FavoriteIcon />
           </Badge>
         </IconButton>
         <p>Saved Recipes</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="your posts" color="inherit">
+          <ListAltIcon />
+        </IconButton>
+        <p>Previous Posts</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -168,12 +176,14 @@ function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar>
           <img src={logo} width='50px' height='50px' alt='CookBook Logo' />
-          <Typography className={classes.title} variant="h6" noWrap>
-            CookBook
-          </Typography>
+          <Button color='inherit' href='/Home'>
+            <Typography className={classes.title} variant="h6" noWrap>
+              CookBook
+            </Typography>
+          </Button>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -196,8 +206,11 @@ function PrimarySearchAppBar() {
             </IconButton>
             <IconButton aria-label="show 4 new saved recipes" color="inherit">
               <Badge badgeContent={4} color="secondary">
-                <StarIcon />
+                <FavoriteIcon />
               </Badge>
+            </IconButton>
+            <IconButton aria-label="show previous posts" color="inherit">
+              <ListAltIcon />
             </IconButton>
             <IconButton
               edge="end"
