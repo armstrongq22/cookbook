@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import RecipePost from '../components/RecipePost';
 import CreatePost from '../components/CreatePost';
+import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 
 
 function Home() {
@@ -46,7 +47,7 @@ function Home() {
   // Renders component
   return (
     <div>
-      <h2>Welcome</h2>
+      <PrimarySearchAppBar />
       <CreatePost refresh={getRecipePost} />
       <div>
         {displayPosts(recipePosts)}
