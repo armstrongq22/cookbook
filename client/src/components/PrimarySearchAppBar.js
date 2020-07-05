@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'none',
+    fontFamily: 'Hind Vadodara',
+    fontSize: '1.5rem',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -139,7 +141,7 @@ function PrimarySearchAppBar() {
     > 
       
       <MenuItem component={Link} to="/NewPost">
-        <IconButton aria-label="create button" color="inherit" href='/NewPost'>
+        <IconButton aria-label="create button" color="inherit">
           <Badge color="secondary">
             <CreateIcon />
           </Badge>
@@ -175,12 +177,12 @@ function PrimarySearchAppBar() {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position='static'>
+    <div className={classes.grow} style={{marginBottom:'100px'}}>
+      <AppBar position='fixed'>
         <Toolbar>
           <img src={logo} width='50px' height='50px' alt='CookBook Logo' />
           <Button color='inherit' href='/Home'>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography className={classes.title} variant="inherit" noWrap>
               CookBook
             </Typography>
           </Button>

@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
 import RecipePost from '../components/RecipePost';
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import Footer from '../components/Footer';
-
-const postsStyle = {
-  position: 'absolute', left: '35%', top: '20%',
-  marginBottom: '100px'
-};
 
 
 function Home() {
@@ -38,6 +34,7 @@ function Home() {
 
     const display = (
       posts.map((post, index) => 
+      <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
         <RecipePost 
           id={index}
           key={index}
@@ -45,7 +42,8 @@ function Home() {
           date={post.date}
           body={post.body}
           instructions={post.instructions}
-        />)
+        />
+      </Grid>)
     );
     
     return display.slice(0).reverse();
@@ -53,11 +51,11 @@ function Home() {
 
   // Renders component
   return (
-    <div>
+    <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />
-      <div style={postsStyle}>
+      <Grid container spacing={3}>
         {displayPosts(recipePosts)}
-      </div>
+      </Grid>
       <Footer />
     </div>
   )
