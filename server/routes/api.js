@@ -1,6 +1,37 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('../passport/passport');
+
 const RecipePost = require('../models/recipePost');
+const { session } = require('../passport/passport');
+
+// Singup user
+router.post('/signup', (req, res, next) => {
+    
+    passport.authenticate('local-signup', function(error, user, info) {
+        if(error) {
+            return res.status(500).json({
+                message: 'Authentication failed',
+                error: error.message
+            });
+        };
+        
+        return res.json(user);
+    })(req, res, next);
+});
+
+// Signin user
+router.post('/signin', (req, res, next) => {
+    passport.authenticate('local-signin', function(error, user, info) {
+        if(error) {
+            return res.status(500).json({
+                message: error
+            });
+        };
+        
+        return res.json(user);
+    })(req, res, next);
+});
 
 // Retrieve recipe posts from DB
 router.get('/posts', (req, res) => {

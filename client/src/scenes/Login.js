@@ -1,4 +1,8 @@
 import React from 'react';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
+
+// Matrial-ui components
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,8 +15,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+// Custom components
 import Copyright from '../components/Copyright';
 
+// Applied styles
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -44,8 +50,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Login component
 function Login() {
   const classes = useStyles();
+
+  // Used to redirect to /Home
+  const history = useHistory();
+  const goHome = () => history.push('/Home');
+
+  // Input state
+  const [login, setLogin] = React.useState({
+    email: '',
+    password: ''
+  });
+
+  // Updates input state
+  function handleChange(event) {
+    const target = event.target;
+    const {name, value} = target;
+
+    setLogin((prevValue) => {
+        return {
+            ...prevValue,
+            [name]: value
+        };
+    });
+  };
+
+  // Verifies input state as a current user
+  function submit(event) {
+    event.preventDefault();
+
+    const payload = {
+        email: login.email,
+        password: login.password
+    };
+
+    axios({
+        url: '/api/signin',
+        method: 'POST',
+        data: payload
+    })
+    .then(() => {
+        if(login.email !== '' && login.password !== '') {
+          goHome();
+          console.log('Login complete!');
+        }
+        else console.log('All fields required');
+    })
+    .catch((error) => {
+        console.log(error.response.data.message);
+    });
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -59,8 +115,9 @@ function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={submit} noValidate>
             <TextField
+              onChange={handleChange}
               variant="outlined"
               margin="normal"
               required
@@ -72,6 +129,7 @@ function Login() {
               autoFocus
             />
             <TextField
+              onChange={handleChange}
               variant="outlined"
               margin="normal"
               required

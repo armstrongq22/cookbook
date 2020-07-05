@@ -34,7 +34,7 @@ function Home() {
 
     const display = (
       posts.map((post, index) => 
-      <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+      <Grid item key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
         <RecipePost 
           id={index}
           key={index}
