@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 import orangeChicken from '../images/orange-chicken.jpg'
 
@@ -58,7 +58,7 @@ function RecipePost(props) {
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <LaunchIcon />
           </IconButton>
         }
         title={props.title}
