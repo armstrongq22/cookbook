@@ -54,9 +54,7 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
   const classes = useStyles();
 
-  // Used to redirect to /Home
   const history = useHistory();
-  const goHome = () => history.push('/Home');
 
   // Input state
   const [login, setLogin] = React.useState({
@@ -91,12 +89,9 @@ function Login() {
         method: 'POST',
         data: payload
     })
-    .then(() => {
-        if(login.email !== '' && login.password !== '') {
-          goHome();
-          console.log('Login complete!');
-        }
-        else console.log('All fields required');
+    .then((res) => {
+        console.log('Login complete!');
+        history.push('/Home');
     })
     .catch((error) => {
         console.log(error.response.data.message);

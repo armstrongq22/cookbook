@@ -10,13 +10,20 @@ router.post('/signup', (req, res, next) => {
     
     passport.authenticate('local-signup', function(error, user, info) {
         if(error) {
-            return res.status(500).json({
-                message: 'Authentication failed',
-                error: error.message
-            });
+            return res.status(500).json({ message: error});
         };
         
-        return res.json(user);
+        // Persistent Login
+        req.logIn(user, (error) => {
+            if(error) {
+                return res.status(500).json({
+                    message: error
+                });
+            }
+
+            // TODO: Don't send password with uer
+            return res.json(user);
+        });
     })(req, res, next);
 });
 
@@ -29,21 +36,36 @@ router.post('/signin', (req, res, next) => {
             });
         };
         
-        return res.json(user);
+        req.logIn(user, (error) => {
+            if(error) {
+                return res.status(500).json({
+                    message: 'Authentication failed',
+                    error: error.message
+                });
+            }
+
+            // TODO: Don't send password with uer
+            user.isAuthenticated = true;
+            user.password = null;
+            return res.json(user);
+        });
     })(req, res, next);
 });
 
 // Retrieve recipe posts from DB
 router.get('/posts', (req, res) => {
-
-    RecipePost.find({})
-        .then((data) => {
-            //console.log('Data: ' + data);
-            res.json(data);
-        })
-        .catch((error) => {
-            console.log('Error: ' + error);
-        });
+    if(req.isAuthenticated()) {
+        RecipePost.find({})
+            .then((data) => {
+                //console.log('Data: ' + data);
+                res.json(data);
+            })
+            .catch((error) => {
+                console.log('Error: ' + error);
+            });
+    } else {
+        res.status(500).json({message: 'User not authenticated'});
+    }
 });
 
 // Post new recipe post to DB

@@ -4,29 +4,36 @@ import Grid from '@material-ui/core/Grid';
 import RecipePost from '../components/RecipePost';
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import Footer from '../components/Footer';
+import { useHistory } from 'react-router-dom';
 
 
 function Home() {
   // Recipe posts state
   const [recipePosts, setRecipePosts] = React.useState([]);
 
+  const history = useHistory();
+
   // Mounts current recipe posts on load
   useEffect(() => {
-    return getRecipePost();
-  }, []);
+    axios.get('/api/posts')
+    .then((res) => {
+      const data = res.data;
+      setRecipePosts(data);
+      console.log('Posts have been retrieved');
+    })
+    .catch((error) => {
+      if(error.response.status === 500) {
+        console.log(error.response.data.message);
+        history.push('/');
+      }
+      else console.log(error);
+    });
+  }, [history]);
 
   // Updates recipe posts state to DB
-  function getRecipePost() {
-    axios.get('/api/posts')
-      .then((res) => {
-        const data = res.data;
-        setRecipePosts(data);
-        console.log('Posts have been retrieved');
-      })
-      .catch(() => {
-        console.log('An error has occurred retrieving the posts');
-      });
-  };
+  // function getRecipePost() {
+
+  // };
 
   // Displays posts in recipePosts state
   function displayPosts(posts) {
