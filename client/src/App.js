@@ -4,6 +4,7 @@ import Home from './scenes/Home';
 import Login from './scenes/Login';
 import SignUp from './scenes/SignUp';
 import NewPost from './scenes/NewPost';
+import PageNotFound from './scenes/PageNotFound';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path='/Signup' component={SignUp} />
                     <Route path='/Home' component={Home} />
                     <Route path='/NewPost' component={NewPost} />
+                    <Route path='/' component={PageNotFound} />
                 </Switch>
             </div>
         </Router>
