@@ -6,12 +6,18 @@ const RecipePost = require('../models/recipePost');
 const { session } = require('../passport/passport');
 
 // Authenticates with cookie
-router.get('/authenticate', (req, res, next) => {
+router.get('/authenticate', (req, res) => {
     if(req.isAuthenticated()) {
         res.json({message: 'User is authenticated'})
     } else {
         res.status(500).json({message: 'User is not authenticated'});
     }
+});
+
+// Logout user
+router.post('/logout', (req, res) => {
+    req.session = null;
+    res.json({message: 'User logout complete'});
 });
 
 // Singup user
