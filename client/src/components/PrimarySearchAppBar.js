@@ -1,4 +1,8 @@
 import React from 'react';
+import axios from 'axios';
+import {Link, useHistory} from 'react-router-dom';
+
+// Material-ui components
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,9 +20,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import CreateIcon from '@material-ui/icons/Create';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
-
-
-import {Link} from 'react-router-dom';
+// Custom components
 import logo from '../images/logo.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -89,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PrimarySearchAppBar() {
   const classes = useStyles();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -112,6 +115,19 @@ function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    handleMenuClose();
+
+    axios.post('/api/logout')
+      .then((res) => {
+          history.push('/');
+          console.log('Logout successful');
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -124,7 +140,7 @@ function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
