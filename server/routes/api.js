@@ -5,6 +5,15 @@ const passport = require('../passport/passport');
 const RecipePost = require('../models/recipePost');
 const { session } = require('../passport/passport');
 
+// Authenticates with cookie
+router.get('/authenticate', (req, res, next) => {
+    if(req.isAuthenticated()) {
+        res.json({message: 'User is authenticated'})
+    } else {
+        res.status(500).json({message: 'User is not authenticated'});
+    }
+});
+
 // Singup user
 router.post('/signup', (req, res, next) => {
     
@@ -54,18 +63,14 @@ router.post('/signin', (req, res, next) => {
 
 // Retrieve recipe posts from DB
 router.get('/posts', (req, res) => {
-    if(req.isAuthenticated()) {
-        RecipePost.find({})
-            .then((data) => {
-                //console.log('Data: ' + data);
-                res.json(data);
-            })
-            .catch((error) => {
-                console.log('Error: ' + error);
-            });
-    } else {
-        res.status(500).json({message: 'User not authenticated'});
-    }
+    RecipePost.find({})
+        .then((data) => {
+            //console.log('Data: ' + data);
+            res.json(data);
+        })
+        .catch((error) => {
+            console.log('Error: ' + error);
+        });
 });
 
 // Post new recipe post to DB

@@ -13,27 +13,34 @@ function Home() {
 
   const history = useHistory();
 
-  // Mounts current recipe posts on load
+  // If authenticated, loads recipe posts, otherwise redirects to login
   useEffect(() => {
-    axios.get('/api/posts')
-    .then((res) => {
-      const data = res.data;
-      setRecipePosts(data);
-      console.log('Posts have been retrieved');
-    })
-    .catch((error) => {
-      if(error.response.status === 500) {
-        console.log(error.response.data.message);
-        history.push('/');
-      }
-      else console.log(error);
-    });
+    axios.get('/api/authenticate')
+      .then((res) => {
+          console.log('User authenticated');
+          getRecipePost();
+      })
+      .catch((error) => {
+          if(error.response.status === 500) {
+            console.log(error.response.data.message);
+            history.push('/');
+          }
+          else console.log(error);
+      });
   }, [history]);
 
   // Updates recipe posts state to DB
-  // function getRecipePost() {
-
-  // };
+  function getRecipePost() {
+      axios.get('/api/posts')
+      .then((res) => {
+        const data = res.data;
+        setRecipePosts(data);
+        console.log('Posts have been retrieved');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // Displays posts in recipePosts state
   function displayPosts(posts) {
