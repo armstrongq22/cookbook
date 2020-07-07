@@ -4,27 +4,41 @@ import Grid from '@material-ui/core/Grid';
 import RecipePost from '../components/RecipePost';
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import Footer from '../components/Footer';
+import { useHistory } from 'react-router-dom';
 
 
 function Home() {
   // Recipe posts state
   const [recipePosts, setRecipePosts] = React.useState([]);
 
-  // Mounts current recipe posts on load
+  const history = useHistory();
+
+  // If authenticated, loads recipe posts, otherwise redirects to login
   useEffect(() => {
-    return getRecipePost();
-  }, []);
+    axios.get('/api/authenticate')
+      .then((res) => {
+          console.log('User authenticated');
+          getRecipePost();
+      })
+      .catch((error) => {
+          if(error.response.status === 500) {
+            console.log(error.response.data.message);
+            history.push('/');
+          }
+          else console.log(error);
+      });
+  }, [history]);
 
   // Updates recipe posts state to DB
   function getRecipePost() {
-    axios.get('/api/posts')
+      axios.get('/api/posts')
       .then((res) => {
         const data = res.data;
         setRecipePosts(data);
         console.log('Posts have been retrieved');
       })
-      .catch(() => {
-        console.log('An error has occurred retrieving the posts');
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -34,7 +48,7 @@ function Home() {
 
     const display = (
       posts.map((post, index) => 
-      <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+      <Grid item key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
         <RecipePost 
           id={index}
           key={index}
