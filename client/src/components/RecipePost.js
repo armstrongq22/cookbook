@@ -15,7 +15,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LaunchIcon from '@material-ui/icons/Launch';
 
-import orangeChicken from '../images/orange-chicken.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +65,7 @@ function RecipePost(props) {
       />
       <CardMedia
         className={classes.media}
-        image={orangeChicken}
+        image={process.env.PUBLIC_URL + '/images/' + props.image}
         title="Paella dish"
       />
       <CardContent>

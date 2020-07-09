@@ -6,6 +6,10 @@ const RecipePostSchema = new Schema({
     title: String,
     body: String,
     instructions: String,
+    imageData: {
+        type: String,
+        required: true
+    },
     date: {
         type: String,
         default: new Date().toISOString().slice(0,10)

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import defaultImage from '../images/defaultImage.jpg';
 
 function CreatePost(props) {
     // Input state
@@ -8,6 +9,8 @@ function CreatePost(props) {
         body: '',
         instructions: ''
     });
+    const [newPostImage, setNewPostImage] = React.useState(defaultImage);
+    const [newPreviewImage, setPreviewImage] = React.useState(defaultImage);
 
     // Updates input state
     function handleChange(event) {
@@ -26,26 +29,23 @@ function CreatePost(props) {
     function submit(event) {
         event.preventDefault();
 
-        const payload = {
-            title: newPost.title,
-            body: newPost.body,
-            instructions: newPost.instructions
-        };
+        let recipeObject = new FormData();
 
-        axios({
-            url: '/api/save',
-            method: 'POST',
-            data: payload
-        })
-        .then(() => {
-            console.log('Data has been sent to server');
-            resetInput();
-            props.refresh();
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
+        recipeObject.append('title', newPost.title);
+        recipeObject.append('body', newPost.body);
+        recipeObject.append('instructions', newPost.instructions);
+        recipeObject.append('imageData', newPostImage);
+
+        axios.post('/api/save', recipeObject)
+            .then(() => {
+                console.log('Data has been sent to server');
+                resetInput();
+                props.refresh();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     // Resets input state after submission
     function resetInput() {
@@ -54,7 +54,31 @@ function CreatePost(props) {
             body: '',
             instructions: ""
         });
+        setNewPostImage(defaultImage);
     };
+
+    function handleImageChange(event) {
+        setNewPostImage(event.target.files[0]);
+        handlePreview(event);
+    };
+
+    function handlePreview(event) {
+        event.preventDefault();
+
+        let file = event.target.files[0];
+        let reader = new FileReader();
+    
+        if (event.target.files.length === 0) {
+          return;
+        }
+    
+        reader.onloadend = (e) => {
+          setPreviewImage(reader.result);
+        };
+    
+        reader.readAsDataURL(file);
+    };
+    
 
     return (
         <form onSubmit={submit}>
@@ -90,6 +114,8 @@ function CreatePost(props) {
                     required
                 />
             </div>
+            <input type='file' onChange={handleImageChange} />
+            <img src={newPreviewImage} required width='100px' height='100px' alt="" />
             <button>Submit</button>
         </form>
     );

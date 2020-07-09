@@ -4,6 +4,7 @@ const passport = require('../passport/passport');
 
 const RecipePost = require('../models/recipePost');
 const { session } = require('../passport/passport');
+const upload = require('../multer/multer');
 
 // Authenticates with cookie
 router.get('/authenticate', (req, res) => {
@@ -82,16 +83,32 @@ router.get('/posts', (req, res) => {
 });
 
 // Post new recipe post to DB
-router.post('/save', (req, res) => {
-    const data = req.body;
+router.post('/save', upload.single('imageData'), (req, res) => {
+    const title = req.body.title;
+    const body = req.body.body;
+    const inst = req.body.instructions;
 
-    const newRecipePost = new RecipePost(data);
-    newRecipePost.save((error) => {
-        if(error) 
-            res.status(500).json({msg: 'Internal server errors'});
-        else 
-            res.json({msg: 'Your data has been saved'});
+    // Just store image name
+    const imageData = req.file.path.substr(req.file.path.lastIndexOf('\\')+1);
+
+    const newRecipePost = new RecipePost({
+        title: title,
+        body: body,
+        instructions: inst,
+        imageData: imageData
     });
+    newRecipePost.save()
+        .then((result) => {
+            console.log(result);
+            res.json({
+                success: true,
+                msg: 'Your data has been saved'
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({msg: 'Internal server errors'});
+        });
 });
 
 module.exports = router;

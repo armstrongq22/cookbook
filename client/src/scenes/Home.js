@@ -56,6 +56,7 @@ function Home() {
           date={post.date}
           body={post.body}
           instructions={post.instructions}
+          image={post.imageData}
         />
       </Grid>)
     );

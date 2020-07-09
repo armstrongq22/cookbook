@@ -196,12 +196,12 @@ function PrimarySearchAppBar() {
     <div className={classes.grow} style={{marginBottom:'100px'}}>
       <AppBar position='fixed'>
         <Toolbar>
-          <img src={logo} width='50px' height='50px' alt='CookBook Logo' />
           <Button color='inherit' href='/Home'>
-            <Typography className={classes.title} variant="inherit" noWrap>
-              CookBook
-            </Typography>
+            <img src={logo} width='50px' height='50px' alt='CookBook Logo' />
           </Button>
+          <Typography className={classes.title} variant="inherit" noWrap>
+            CookBook
+          </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
