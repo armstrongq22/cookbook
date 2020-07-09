@@ -228,7 +228,7 @@ function PrimarySearchAppBar() {
               </Badge>
             </IconButton>
             <IconButton aria-label="show 4 new saved recipes" color="inherit" href='/Favorites'>
-              <Badge badgeContent={4} color="secondary">
+              <Badge color="secondary">
                 <FavoriteIcon />
               </Badge>
             </IconButton>

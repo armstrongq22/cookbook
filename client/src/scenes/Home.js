@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
-import RecipePost from '../components/RecipePost';
-import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
-import Footer from '../components/Footer';
 import { useHistory } from 'react-router-dom';
+
+// Custom components
+import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
+import DisplayPosts from '../components/DisplayPosts';
+import Footer from '../components/Footer';
 
 
 function Home() {
@@ -42,37 +43,11 @@ function Home() {
       });
   };
 
-  // Displays posts in recipePosts state
-  function displayPosts(posts) {
-    if(!posts.length) return;
-
-    const display = (
-      posts.map((post, index) => 
-      <Grid item key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
-        <RecipePost 
-          id={post._id}
-          key={index}
-          account={post.account}
-          name={post.accountName}
-          title={post.title}
-          date={post.date}
-          body={post.body}
-          instructions={post.instructions}
-          image={post.imageData}
-        />
-      </Grid>)
-    );
-    
-    return display.slice(0).reverse();
-  };
-
   // Renders component
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />
-      <Grid container spacing={3}>
-        {displayPosts(recipePosts)}
-      </Grid>
+      <DisplayPosts posts={recipePosts} />
       <Footer />
     </div>
   )
