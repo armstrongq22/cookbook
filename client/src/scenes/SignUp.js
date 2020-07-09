@@ -48,7 +48,7 @@ function SignUp() {
   const goHome = () => history.push('/Home');
 
   useEffect(() => {
-    axios.get('/api/authenticate')
+    axios.get('/auth/authenticate')
       .then((res) => {
           console.log('User already authenticated');
           history.push('/Home');
@@ -94,7 +94,7 @@ function SignUp() {
     };
 
     axios({
-        url: '/api/signup',
+        url: '/auth/signup',
         method: 'POST',
         data: payload
     })

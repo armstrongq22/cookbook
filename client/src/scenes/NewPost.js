@@ -12,7 +12,7 @@ function NewPost() {
     const goHome = () => history.push('/Home');
 
     useEffect(() => {
-        axios.get('/api/authenticate')
+        axios.get('/auth/authenticate')
         .then((res) => {
             console.log('User authenticated');
         })

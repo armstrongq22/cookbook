@@ -56,7 +56,7 @@ function Login() {
   const history = useHistory();
 
   useEffect(() => {
-    axios.get('/api/authenticate')
+    axios.get('/auth/authenticate')
       .then((res) => {
           console.log('User already authenticated');
           history.push('/Home');
@@ -98,7 +98,7 @@ function Login() {
     };
 
     axios({
-        url: '/api/signin',
+        url: '/auth/signin',
         method: 'POST',
         data: payload
     })

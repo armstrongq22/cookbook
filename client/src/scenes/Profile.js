@@ -1,14 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
 import {CirclePicker} from 'react-color';
+import {useHistory} from 'react-router-dom';
 
 // Custom Components
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import Footer from '../components/Footer';
 
 function Profile() {
-
     const [color, setColor] = React.useState();
+    
+    const history = useHistory();
+
+    useEffect(() => {
+        axios.get('/auth/authenticate')
+          .then((res) => {
+              console.log('User authenticated');
+          })
+          .catch((error) => {
+              if(error.response.status === 500) {
+                console.log(error.response.data.message);
+                history.push('/');
+              }
+              else console.log(error);
+          });
+      }, [history]);
 
     function handleChangeComplete(color) {
         setColor(color.hex);

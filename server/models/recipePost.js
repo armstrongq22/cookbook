@@ -18,7 +18,9 @@ const RecipePostSchema = new Schema({
     }
 });
 
+exports.RecipePostSchema = RecipePostSchema;
+
 // Model
 const RecipePost = mongoose.model('RecipePost', RecipePostSchema);
 
-module.exports = RecipePost;
+exports.RecipePost = RecipePost;

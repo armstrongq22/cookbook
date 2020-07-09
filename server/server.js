@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 const api_routes = require('./routes/api');
+const auth_routes = require('./routes/auth');
 const passport = require('./passport/passport')
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(passport.session());
 // HTTP request logger
 app.use(morgan('tiny'));
 app.use('/api', api_routes);
+app.use('/auth', auth_routes);
 
 
 app.listen(PORT, console.log('Listening on ' + PORT));

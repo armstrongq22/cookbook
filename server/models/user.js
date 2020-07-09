@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const RP = require('./recipePost');
 
 // Schema
 const Schema = mongoose.Schema;
@@ -23,6 +24,8 @@ const UserSchema = new Schema({
         type: String,
         default: "#f44336"
     },
+    favorites: [RP.RecipePostSchema],
+    posts: [RP.RecipePostSchema],
     date: {
         type: String,
         default: new Date().toISOString().slice(0,10)
