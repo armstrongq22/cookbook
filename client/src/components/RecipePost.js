@@ -57,6 +57,16 @@ function RecipePost(props) {
     setExpanded(!expanded);
   };
 
+  const handleFavorite = () => {
+    axios.post('/api/favorite', {id: props.id})
+      .then(() => {
+          console.log('Data has been sent to server');
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  };
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -84,7 +94,7 @@ function RecipePost(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={handleFavorite}>
           <FavoriteIcon />
         </IconButton>
         <IconButton

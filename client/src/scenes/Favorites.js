@@ -7,9 +7,9 @@ import Footer from '../components/Footer';
 import { useHistory } from 'react-router-dom';
 
 
-function Home() {
+function Favorites() {
   // Recipe posts state
-  const [recipePosts, setRecipePosts] = React.useState([]);
+  const [favoritePosts, setFavoritePosts] = React.useState([]);
 
   const history = useHistory();
 
@@ -31,10 +31,11 @@ function Home() {
 
   // Updates recipe posts state to DB
   function getRecipePost() {
-      axios.get('/api/posts')
+      axios.get('/api/getFavorites')
       .then((res) => {
-        const data = res.data;
-        setRecipePosts(data);
+        // console.log(res);
+        const data = res.data.posts;
+        setFavoritePosts(data);
         console.log('Posts have been retrieved');
       })
       .catch((error) => {
@@ -43,11 +44,11 @@ function Home() {
   };
 
   // Displays posts in recipePosts state
-  function displayPosts(posts) {
-    if(!posts.length) return;
+  function displayPosts(favoritePosts) {
+    if(!favoritePosts.length) return;
 
     const display = (
-      posts.map((post, index) => 
+        favoritePosts.map((post, index) => 
       <Grid item key={index} xs={12} sm={6} md={4} lg={3} xl={2}>
         <RecipePost 
           id={post._id}
@@ -71,11 +72,11 @@ function Home() {
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />
       <Grid container spacing={3}>
-        {displayPosts(recipePosts)}
+        {displayPosts(favoritePosts)}
       </Grid>
       <Footer />
     </div>
   )
 }
 
-export default Home;
+export default Favorites;

@@ -10,7 +10,7 @@ const upload = require('../multer/multer');
 router.get('/posts', (req, res) => {
     RP.RecipePost.find({})
         .then((data) => {
-            //console.log('Data: ' + data);
+            //console.log(data);
             res.json(data);
         })
         .catch((error) => {
@@ -86,6 +86,46 @@ router.post('/getAvatarColor', (req, res) => {
         .catch((error) => {
             console.log('Error: ' + error);
         });
+});
+
+// Adds a post to a users favorites
+router.post('/favorite', (req, res) => {
+    User.findOne({email: req.user.email})
+        .then((user) => {
+            RP.RecipePost.findById({_id: req.body.id})
+                .then((post) => {
+                    if (user.favorites.filter(function(e) { return e._id == req.body.id; }).length === 0) {
+                        user.favorites.push(post);
+                        user.save();
+                    } else {
+                        user.favorites.remove(post);
+                        user.save();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    res.status(500).json({msg: 'Internal server errors'});
+                });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).json({msg: 'Internal server errors'});
+        });
+});
+
+// Retrieve favorite posts from DB
+router.get('/getFavorites', (req, res) => {
+    User.findOne({email: req.user.email})
+    .then((user) => {
+        res.json({
+            success: true,
+            posts: user.favorites
+        })
+    })
+    .catch((error) => {
+        console.log(error);
+        res.status(500).json({msg: 'Internal server errors'});
+    });
 });
 
 module.exports = router;

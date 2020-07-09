@@ -169,7 +169,7 @@ function PrimarySearchAppBar() {
         </IconButton>
         <p>New Post</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem component={Link} to='/Favorites'>
         <IconButton aria-label="show 4 new saved recipes" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <FavoriteIcon />
@@ -227,7 +227,7 @@ function PrimarySearchAppBar() {
                 <CreateIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 4 new saved recipes" color="inherit">
+            <IconButton aria-label="show 4 new saved recipes" color="inherit" href='/Favorites'>
               <Badge badgeContent={4} color="secondary">
                 <FavoriteIcon />
               </Badge>
