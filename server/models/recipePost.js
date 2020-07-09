@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 // Schema
 const Schema = mongoose.Schema;
 const RecipePostSchema = new Schema({
+    account: String,
+    accountName: String,
     title: String,
     body: String,
     instructions: String,

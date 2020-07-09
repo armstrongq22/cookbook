@@ -52,6 +52,8 @@ function Home() {
         <RecipePost 
           id={index}
           key={index}
+          account={post.account}
+          name={post.accountName}
           title={post.title}
           date={post.date}
           body={post.body}

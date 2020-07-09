@@ -128,6 +128,11 @@ function PrimarySearchAppBar() {
       });
   };
 
+  const handleProfile = () => {
+    handleMenuClose();
+    history.push('/Profile');
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -139,7 +144,7 @@ function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleProfile}>Profile</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );

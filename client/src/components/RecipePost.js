@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import axios from 'axios';
+
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -10,10 +12,10 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LaunchIcon from '@material-ui/icons/Launch';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,14 +36,22 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  avatar: {
-    backgroundColor: red[500],
-  },
 }));
 
 function RecipePost(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [color, setColor] = React.useState();
+
+  useEffect(() => {
+    axios.post('/api/getAvatarColor', {email: props.account})
+      .then((res) => {
+          setColor(res.data.color);
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  }, [props.account]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -51,8 +61,8 @@ function RecipePost(props) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+          <Avatar aria-label="recipe" style={{backgroundColor: color}}>
+            {props.name.charAt(0).toUpperCase()}
           </Avatar>
         }
         action={

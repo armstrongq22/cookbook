@@ -19,6 +19,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    avatarColor: {
+        type: String,
+        default: "#f44336"
+    },
     date: {
         type: String,
         default: new Date().toISOString().slice(0,10)
