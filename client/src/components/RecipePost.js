@@ -49,11 +49,11 @@ function RecipePost(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [avatarColor, setAvatarColor] = React.useState();
-  const [favColor, setFavColor] = React.useState((props.scene==='Home') ? false : true);
+  const [favColor, setFavColor] = React.useState((props.scene!=='Favorites') ? false : true);
   const [display, setDisplay] = React.useState(false);
 
   useEffect(() => {
-    if(props.scene==='Home') {
+    if(props.scene !== 'Favorites') {
       axios.get('/api/getFavorites')
         .then((res) => {
           // console.log(res);
