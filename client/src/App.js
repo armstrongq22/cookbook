@@ -9,6 +9,7 @@ import NewPost from './scenes/NewPost';
 import Profile from './scenes/Profile';
 import Favorites from './scenes/Favorites';
 import UserRecipes from './scenes/UserRecipes';
+import RecipeExpanded from './scenes/RecipeExpanded';
 import PageNotFound from './scenes/PageNotFound';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     <Route path='/Profile' component={Profile} />
                     <Route path='/Favorites' component={Favorites} />
                     <Route path='/UserRecipes' component={UserRecipes} />
+                    <Route path='/Recipe/:id' exact component={RecipeExpanded} />
                     <Route path='/' component={PageNotFound} />
                 </Switch>
             </div>

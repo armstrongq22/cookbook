@@ -10,7 +10,6 @@ const upload = require('../multer/multer');
 router.get('/posts', (req, res) => {
     RP.RecipePost.find({})
         .then((data) => {
-            //console.log(data);
             res.json(data);
         })
         .catch((error) => {
@@ -154,6 +153,21 @@ router.get('/getUserRecipes', (req, res) => {
         console.log(error);
         res.status(500).json({msg: 'Internal server errors'});
     });
+});
+
+// Retrieve expanded recipe
+router.post('/getRecipeExpanded', (req, res) => {
+    RP.RecipePost.findById({_id: req.body.id})
+        .then((data) => {
+            res.json({
+                success: true,
+                post: data
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).json({msg: 'Internal server errors'});
+        });
 });
 
 module.exports = router;

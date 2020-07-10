@@ -103,7 +103,7 @@ function RecipePost(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings" href={'/Recipe/' + props.id} target = "_blank" rel="noopener noreferrer">
             <LaunchIcon />
           </IconButton>
         }
