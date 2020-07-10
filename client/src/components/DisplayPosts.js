@@ -22,6 +22,7 @@ function DisplayPosts(props) {
             body={post.body}
             instructions={post.instructions}
             image={post.imageData}
+            scene={props.scene}
             />
         </Grid>)
     );

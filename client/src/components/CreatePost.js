@@ -9,7 +9,7 @@ function CreatePost(props) {
         body: '',
         instructions: ''
     });
-    const [newPostImage, setNewPostImage] = React.useState(defaultImage);
+    const [newPostImage, setNewPostImage] = React.useState();
     const [newPreviewImage, setPreviewImage] = React.useState(defaultImage);
 
     // Updates input state

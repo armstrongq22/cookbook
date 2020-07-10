@@ -47,7 +47,7 @@ function Home() {
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />
-      <DisplayPosts posts={recipePosts} />
+      <DisplayPosts scene='Home' posts={recipePosts} />
       <Footer />
     </div>
   )

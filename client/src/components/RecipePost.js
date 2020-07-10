@@ -36,28 +36,52 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  redFavIcon: {
+    color: '#f54263',
+  },
+  noFavIcon: {
+    color: 'grey',
+  },
 }));
 
 function RecipePost(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [color, setColor] = React.useState();
+  const [avatarColor, setAvatarColor] = React.useState();
+  const [favColor, setFavColor] = React.useState((props.scene==='Home') ? false : true);
+  const [display, setDisplay] = React.useState(false);
 
   useEffect(() => {
+    if(props.scene==='Home') {
+      axios.get('/api/getFavorites')
+        .then((res) => {
+          // console.log(res);
+          const favs = res.data.posts;
+          if (favs.filter(function(e) { return e._id === props.id; }).length === 1) {
+            setFavColor(true);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
     axios.post('/api/getAvatarColor', {email: props.account})
       .then((res) => {
-          setColor(res.data.color);
+          setAvatarColor(res.data.color);
+          setDisplay(true);
       })
       .catch((error) => {
           console.log(error);
       });
-  }, [props.account]);
+  }, [props.account, props.id, props.scene]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const handleFavorite = () => {
+    setFavColor(!favColor);
     axios.post('/api/favorite', {id: props.id})
       .then(() => {
           console.log('Data has been sent to server');
@@ -67,11 +91,13 @@ function RecipePost(props) {
       });
   };
 
+  if(!display) return <h2 style={{color: '#6c7b8c'}}>Loading...</h2>
+
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" style={{backgroundColor: color}}>
+          <Avatar aria-label="recipe" style={{backgroundColor: avatarColor}}>
             {props.name.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -95,7 +121,7 @@ function RecipePost(props) {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites" onClick={handleFavorite}>
-          <FavoriteIcon />
+          <FavoriteIcon className={(favColor) ? classes.redFavIcon : classes.noFavIcon} />
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
