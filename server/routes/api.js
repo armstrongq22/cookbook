@@ -39,6 +39,8 @@ router.post('/save', upload.single('imageData'), (req, res) => {
         instructions: inst,
         imageData: imageData
     });
+
+    // Saves Recipe Post
     newRecipePost.save()
         .then((result) => {
             console.log(result);
@@ -49,6 +51,17 @@ router.post('/save', upload.single('imageData'), (req, res) => {
         })
         .catch((err) => {
             console.log(err);
+            res.status(500).json({msg: 'Internal server errors'});
+        });
+    
+    // Saves Recipe Post in User
+    User.findOne({email: req.user.email})
+        .then((user) => {
+           user.posts.push(newRecipePost);
+           user.save();
+        })
+        .catch((error) => {
+            console.log(error);
             res.status(500).json({msg: 'Internal server errors'});
         });
 });
@@ -120,6 +133,20 @@ router.get('/getFavorites', (req, res) => {
         res.json({
             success: true,
             posts: user.favorites
+        })
+    })
+    .catch((error) => {
+        console.log(error);
+        res.status(500).json({msg: 'Internal server errors'});
+    });
+});
+
+router.get('/getUserRecipes', (req, res) => {
+    User.findOne({email: req.user.email})
+    .then((user) => {
+        res.json({
+            success: true,
+            posts: user.posts
         })
     })
     .catch((error) => {

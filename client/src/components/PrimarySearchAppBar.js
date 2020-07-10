@@ -170,18 +170,18 @@ function PrimarySearchAppBar() {
         <p>New Post</p>
       </MenuItem>
       <MenuItem component={Link} to='/Favorites'>
-        <IconButton aria-label="show 4 new saved recipes" color="inherit">
+        <IconButton aria-label="Your saved recipes" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <FavoriteIcon />
           </Badge>
         </IconButton>
         <p>Saved Recipes</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="your posts" color="inherit">
+      <MenuItem component={Link} to='/UserRecipes' >
+        <IconButton aria-label="Your recipes" color="inherit">
           <ListAltIcon />
         </IconButton>
-        <p>Previous Posts</p>
+        <p>Your Recipes</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -227,12 +227,12 @@ function PrimarySearchAppBar() {
                 <CreateIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 4 new saved recipes" color="inherit" href='/Favorites'>
+            <IconButton aria-label="Your saved recipes" color="inherit" href='/Favorites'>
               <Badge color="secondary">
                 <FavoriteIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show previous posts" color="inherit">
+            <IconButton aria-label="Your recipes" color="inherit" href='/UserRecipes'>
               <ListAltIcon />
             </IconButton>
             <IconButton

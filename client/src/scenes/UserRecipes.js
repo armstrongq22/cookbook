@@ -8,9 +8,9 @@ import DisplayPosts from '../components/DisplayPosts';
 import Footer from '../components/Footer';
 
 
-function Home() {
+function UserRecipes() {
   // Recipe posts state
-  const [recipePosts, setRecipePosts] = React.useState([]);
+  const [UserPosts, setUserPosts] = React.useState([]);
   const [display, setDisplay] = React.useState(false);
 
   const history = useHistory();
@@ -33,10 +33,11 @@ function Home() {
 
   // Updates recipe posts state to DB
   function getRecipePost() {
-      axios.get('/api/posts')
+      axios.get('/api/getUserRecipes')
       .then((res) => {
-        const data = res.data;
-        setRecipePosts(data);
+        // console.log(res);
+        const data = res.data.posts;
+        setUserPosts(data);
         setDisplay(true);
         console.log('Posts have been retrieved');
       })
@@ -49,10 +50,10 @@ function Home() {
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />
-      <DisplayPosts scene='Home' posts={recipePosts} />
+      <DisplayPosts scene='UserRecipes' posts={UserPosts} />
       <Footer />
     </div>
   )
 }
 
-export default Home;
+export default UserRecipes;

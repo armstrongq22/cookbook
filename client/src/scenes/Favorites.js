@@ -20,7 +20,6 @@ function Favorites() {
     axios.get('/auth/authenticate')
       .then((res) => {
           console.log('User authenticated');
-          setDisplay(true);
           getRecipePost();
       })
       .catch((error) => {
@@ -39,6 +38,7 @@ function Favorites() {
         // console.log(res);
         const data = res.data.posts;
         setFavoritePosts(data);
+        setDisplay(true);
         console.log('Posts have been retrieved');
       })
       .catch((error) => {
@@ -50,7 +50,7 @@ function Favorites() {
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />
-      <DisplayPosts posts={favoritePosts} />
+      <DisplayPosts scene='Favorites' posts={favoritePosts} />
       <Footer />
     </div>
   )
