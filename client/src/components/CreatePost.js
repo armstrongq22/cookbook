@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+
+//Custom component
 import defaultImage from '../images/defaultImage.jpg';
 
 function CreatePost(props) {

@@ -18,7 +18,7 @@ function Favorites() {
   // If authenticated, loads recipe posts, otherwise redirects to login
   useEffect(() => {
     axios.get('/auth/authenticate')
-      .then((res) => {
+      .then(() => {
           console.log('User authenticated');
           getRecipePost();
       })
@@ -35,7 +35,6 @@ function Favorites() {
   function getRecipePost() {
       axios.get('/api/getFavorites')
       .then((res) => {
-        // console.log(res);
         const data = res.data.posts;
         setFavoritePosts(data);
         setDisplay(true);

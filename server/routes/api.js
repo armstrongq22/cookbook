@@ -141,6 +141,7 @@ router.get('/getFavorites', (req, res) => {
     });
 });
 
+// Retrieve user posts
 router.get('/getUserRecipes', (req, res) => {
     User.findOne({email: req.user.email})
     .then((user) => {

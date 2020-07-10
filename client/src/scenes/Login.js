@@ -57,7 +57,7 @@ function Login() {
 
   useEffect(() => {
     axios.get('/auth/authenticate')
-      .then((res) => {
+      .then(() => {
           console.log('User already authenticated');
           history.push('/Home');
       })

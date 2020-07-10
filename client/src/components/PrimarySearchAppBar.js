@@ -119,7 +119,7 @@ function PrimarySearchAppBar() {
     handleMenuClose();
 
     axios.post('/auth/logout')
-      .then((res) => {
+      .then(() => {
           history.push('/');
           console.log('Logout successful');
       })

@@ -1,6 +1,9 @@
 import React from 'react';
+
+// Material-ui components
 import Grid from '@material-ui/core/Grid';
 
+// Custom components
 import RecipePost from '../components/RecipePost';
 
 function DisplayPosts(props) {

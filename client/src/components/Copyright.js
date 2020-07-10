@@ -1,4 +1,6 @@
 import React from 'react';
+
+// Material-ui components
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 

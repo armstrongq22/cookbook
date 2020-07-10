@@ -15,7 +15,7 @@ function Profile() {
 
     useEffect(() => {
         axios.get('/auth/authenticate')
-          .then((res) => {
+          .then(() => {
               setDisplay(true);
               console.log('User authenticated');
           })
@@ -62,3 +62,4 @@ function Profile() {
 };
 
 export default Profile;
+

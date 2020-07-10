@@ -17,10 +17,8 @@ const RecipePostSchema = new Schema({
         default: new Date().toISOString().slice(0,10)
     }
 });
-
 exports.RecipePostSchema = RecipePostSchema;
 
 // Model
 const RecipePost = mongoose.model('RecipePost', RecipePostSchema);
-
 exports.RecipePost = RecipePost;

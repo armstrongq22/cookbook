@@ -18,7 +18,7 @@ function Home() {
   // If authenticated, loads recipe posts, otherwise redirects to login
   useEffect(() => {
     axios.get('/auth/authenticate')
-      .then((res) => {
+      .then(() => {
           console.log('User authenticated');
           getRecipePost();
       })

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
+// Custom components
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import CreatePost from '../components/CreatePost';
 import Footer from '../components/Footer';
@@ -15,7 +16,7 @@ function NewPost() {
 
     useEffect(() => {
         axios.get('/auth/authenticate')
-        .then((res) => {
+        .then(() => {
             setDisplay(true);
             console.log('User authenticated');
         })

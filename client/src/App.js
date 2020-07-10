@@ -1,5 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
+// Custom scenes
 import Home from './scenes/Home';
 import Login from './scenes/Login';
 import SignUp from './scenes/SignUp';
