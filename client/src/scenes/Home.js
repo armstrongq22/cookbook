@@ -11,6 +11,7 @@ import Footer from '../components/Footer';
 function Home() {
   // Recipe posts state
   const [recipePosts, setRecipePosts] = React.useState([]);
+  const [display, setDisplay] = React.useState(false);
 
   const history = useHistory();
 
@@ -19,6 +20,7 @@ function Home() {
     axios.get('/auth/authenticate')
       .then((res) => {
           console.log('User authenticated');
+          setDisplay(true);
           getRecipePost();
       })
       .catch((error) => {
@@ -43,7 +45,7 @@ function Home() {
       });
   };
 
-  // Renders component
+  if(!display) return null;
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />

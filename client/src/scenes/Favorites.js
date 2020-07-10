@@ -11,6 +11,7 @@ import Footer from '../components/Footer';
 function Favorites() {
   // Recipe posts state
   const [favoritePosts, setFavoritePosts] = React.useState([]);
+  const [display, setDisplay] = React.useState(false);
 
   const history = useHistory();
 
@@ -19,6 +20,7 @@ function Favorites() {
     axios.get('/auth/authenticate')
       .then((res) => {
           console.log('User authenticated');
+          setDisplay(true);
           getRecipePost();
       })
       .catch((error) => {
@@ -44,7 +46,7 @@ function Favorites() {
       });
   };
 
-  // Renders component
+  if(!display) return null;
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar />

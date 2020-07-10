@@ -8,12 +8,15 @@ import Footer from '../components/Footer';
 
 
 function NewPost() {
+    const [display, setDisplay] = React.useState(false);
+    
     const history = useHistory();
     const goHome = () => history.push('/Home');
 
     useEffect(() => {
         axios.get('/auth/authenticate')
         .then((res) => {
+            setDisplay(true);
             console.log('User authenticated');
         })
         .catch((error) => {
@@ -25,6 +28,7 @@ function NewPost() {
         });
       }, [history]);
 
+    if(!display) return null;
     return (
         <div>
             <PrimarySearchAppBar />

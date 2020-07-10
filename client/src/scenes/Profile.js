@@ -9,12 +9,14 @@ import Footer from '../components/Footer';
 
 function Profile() {
     const [color, setColor] = React.useState();
+    const [display, setDisplay] = React.useState(false);
     
     const history = useHistory();
 
     useEffect(() => {
         axios.get('/auth/authenticate')
           .then((res) => {
+              setDisplay(true);
               console.log('User authenticated');
           })
           .catch((error) => {
@@ -42,6 +44,7 @@ function Profile() {
             });
     };
 
+    if(!display) return null;
     return (
         <div>
             <PrimarySearchAppBar />
