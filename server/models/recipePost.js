@@ -7,6 +7,7 @@ const RecipePostSchema = new Schema({
     accountName: String,
     title: String,
     body: String,
+    ingredients: String,
     instructions: String,
     imageData: {
         type: String,

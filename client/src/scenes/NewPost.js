@@ -35,7 +35,7 @@ function NewPost() {
             <PrimarySearchAppBar />
             <h1>Create Post</h1>
             <CreatePost refresh={goHome} />
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };

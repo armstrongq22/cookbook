@@ -137,9 +137,9 @@ function RecipePost(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph variant='h6'>Instructions:</Typography>
+          <Typography paragraph variant='h6'>Ingredients:</Typography>
           <Typography paragraph>
-            {props.instructions}
+            {props.ingredients}
           </Typography>
         </CardContent>
       </Collapse>

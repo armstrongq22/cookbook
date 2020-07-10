@@ -23,6 +23,7 @@ function DisplayPosts(props) {
             title={post.title}
             date={post.date}
             body={post.body}
+            ingredients={post.ingredients}
             instructions={post.instructions}
             image={post.imageData}
             scene={props.scene}

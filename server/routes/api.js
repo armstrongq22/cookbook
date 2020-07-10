@@ -21,6 +21,7 @@ router.get('/posts', (req, res) => {
 router.post('/save', upload.single('imageData'), (req, res) => {
     const title = req.body.title;
     const body = req.body.body;
+    const ingr = req.body.ingredients;
     const inst = req.body.instructions;
     const email = req.user.email;
     const firstName = req.user.firstName;
@@ -35,6 +36,7 @@ router.post('/save', upload.single('imageData'), (req, res) => {
         accountName: firstName,
         title: title,
         body: body,
+        ingredients: ingr,
         instructions: inst,
         imageData: imageData
     });
@@ -73,8 +75,7 @@ router.post('/avatarColor', (req, res) => {
             avatarColor: req.body.newColor 
         } 
     })
-    .then((data) => {
-        //console.log(data);
+    .then(() => {
         res.json({
             success: true,
             msg: 'Your profile has been successfully updated'

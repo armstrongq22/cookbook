@@ -9,6 +9,7 @@ function CreatePost(props) {
     const [newPost, setNewPost] = React.useState({
         title: '',
         body: '',
+        ingredients: '',
         instructions: ''
     });
     const [newPostImage, setNewPostImage] = React.useState();
@@ -35,6 +36,7 @@ function CreatePost(props) {
 
         recipeObject.append('title', newPost.title);
         recipeObject.append('body', newPost.body);
+        recipeObject.append('ingredients', newPost.ingredients);
         recipeObject.append('instructions', newPost.instructions);
         recipeObject.append('imageData', newPostImage);
 
@@ -52,9 +54,10 @@ function CreatePost(props) {
     // Resets input state after submission
     function resetInput() {
         setNewPost({
-            title: "",
+            title: '',
             body: '',
-            instructions: ""
+            ingredients: '',
+            instructions: ''
         });
         setNewPostImage(defaultImage);
     };
@@ -112,6 +115,17 @@ function CreatePost(props) {
                     cols='30'
                     rows='10'
                     value={newPost.instructions}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div className='form-input'>
+                <textarea 
+                    name='ingredients'
+                    placeholder='ingredients'
+                    cols='30'
+                    rows='10'
+                    value={newPost.ingredients}
                     onChange={handleChange}
                     required
                 />
