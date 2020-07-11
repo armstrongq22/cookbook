@@ -17,6 +17,17 @@ router.get('/posts', (req, res) => {
         });
 });
 
+// Retrieve filtered posts from DB
+router.post('/posts', (req, res) => {
+    RP.RecipePost.find({title: { $regex: req.body.title, $options: "i" }})
+        .then((data) => {
+            res.json(data);
+        })
+        .catch((error) => {
+            console.log('Error: ' + error);
+        });
+});
+
 // Post new recipe post to DB
 router.post('/save', upload.single('imageData'), (req, res) => {
     const title = req.body.title;
@@ -27,8 +38,6 @@ router.post('/save', upload.single('imageData'), (req, res) => {
     const firstName = req.user.firstName;
     const lastName = req.user.lastName;
 
-    console.log(email);
-    console.log(firstName);
     // Just store image name
     const imageData = req.file.path.substr(req.file.path.lastIndexOf('\\')+1);
 

@@ -48,7 +48,7 @@ function Home() {
   if(!display) return null;
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar scene='Home' search={setRecipePosts} />
       <DisplayPosts scene='Home' posts={recipePosts} />
       <Footer />
     </div>

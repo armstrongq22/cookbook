@@ -48,7 +48,7 @@ function UserRecipes() {
   if(!display) return null;
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar scene='UserRecipes' />
       <DisplayPosts scene='UserRecipes' posts={UserPosts} />
       <Footer />
     </div>

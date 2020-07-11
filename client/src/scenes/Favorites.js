@@ -48,7 +48,7 @@ function Favorites() {
   if(!display) return null;
   return (
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar scene='Favorites' />
       <DisplayPosts scene='Favorites' posts={favoritePosts} />
       <Footer />
     </div>

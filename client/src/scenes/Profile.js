@@ -47,7 +47,7 @@ function Profile() {
     if(!display) return null;
     return (
         <div>
-            <PrimarySearchAppBar />
+            <PrimarySearchAppBar scene='Profile' />
             <h1>Profile page</h1>
             <form onSubmit={handleSumbit}>
                 <CirclePicker 

@@ -88,11 +88,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PrimarySearchAppBar() {
+function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const history = useHistory();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [search, setSearch] = React.useState('');
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -130,6 +132,25 @@ function PrimarySearchAppBar() {
   const handleProfile = () => {
     handleMenuClose();
     history.push('/Profile');
+  };
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if(search !== null) {
+      axios.post('/api/posts', {title: search})
+        .then((res) => {
+          const data = res.data;
+          props.search(data);
+          console.log('Filtered posts have been retrieved');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const menuId = 'primary-search-account-menu';
@@ -201,20 +222,28 @@ function PrimarySearchAppBar() {
           </Button>
           <Typography className={classes.title} variant="inherit" noWrap>
             CookBook
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          </Typography> 
+          {/* Only renders search bar on home screen */}
+          { props.scene==='Home' &&
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <form onSubmit={handleSearchSubmit}>
+                <InputBase
+                  name='search'
+                  value={search}
+                  onChange={handleSearchChange}
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </form>
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          }
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="create button " color="inherit" href='/NewPost'>

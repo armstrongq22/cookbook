@@ -32,7 +32,7 @@ function NewPost() {
     if(!display) return null;
     return (
         <div>
-            <PrimarySearchAppBar />
+            <PrimarySearchAppBar scene='NewPost' />
             <h1>Create Post</h1>
             <CreatePost refresh={goHome} />
             {/* <Footer /> */}
