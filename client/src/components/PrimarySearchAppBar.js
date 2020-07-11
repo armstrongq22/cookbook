@@ -9,7 +9,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
@@ -163,17 +162,13 @@ function PrimarySearchAppBar() {
       
       <MenuItem component={Link} to="/NewPost">
         <IconButton aria-label="create button" color="inherit">
-          <Badge color="secondary">
-            <CreateIcon />
-          </Badge>
+          <CreateIcon />
         </IconButton>
         <p>New Post</p>
       </MenuItem>
       <MenuItem component={Link} to='/Favorites'>
         <IconButton aria-label="Your saved recipes" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <FavoriteIcon />
-          </Badge>
+          <FavoriteIcon />
         </IconButton>
         <p>Saved Recipes</p>
       </MenuItem>
@@ -223,14 +218,10 @@ function PrimarySearchAppBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="create button " color="inherit" href='/NewPost'>
-              <Badge color="secondary">
-                <CreateIcon />
-              </Badge>
+              <CreateIcon />
             </IconButton>
             <IconButton aria-label="Your saved recipes" color="inherit" href='/Favorites'>
-              <Badge color="secondary">
                 <FavoriteIcon />
-              </Badge>
             </IconButton>
             <IconButton aria-label="Your recipes" color="inherit" href='/UserRecipes'>
               <ListAltIcon />
