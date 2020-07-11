@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 // Custom components
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import CreatePost from '../components/CreatePost';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 
 
 function NewPost() {

@@ -25,6 +25,7 @@ router.post('/save', upload.single('imageData'), (req, res) => {
     const inst = req.body.instructions;
     const email = req.user.email;
     const firstName = req.user.firstName;
+    const lastName = req.user.lastName;
 
     console.log(email);
     console.log(firstName);
@@ -33,7 +34,7 @@ router.post('/save', upload.single('imageData'), (req, res) => {
 
     const newRecipePost = new RP.RecipePost({
         account: email,
-        accountName: firstName,
+        accountName: firstName + ' ' + lastName,
         title: title,
         body: body,
         ingredients: ingr,

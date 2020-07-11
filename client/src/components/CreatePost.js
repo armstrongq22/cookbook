@@ -110,22 +110,22 @@ function CreatePost(props) {
             </div>
             <div className='form-input'>
                 <textarea 
-                    name='instructions'
-                    placeholder='instructions'
+                    name='ingredients'
+                    placeholder='ingredients'
                     cols='30'
                     rows='10'
-                    value={newPost.instructions}
+                    value={newPost.ingredients}
                     onChange={handleChange}
                     required
                 />
             </div>
             <div className='form-input'>
                 <textarea 
-                    name='ingredients'
-                    placeholder='ingredients'
+                    name='instructions'
+                    placeholder='instructions'
                     cols='30'
                     rows='10'
-                    value={newPost.ingredients}
+                    value={newPost.instructions}
                     onChange={handleChange}
                     required
                 />
