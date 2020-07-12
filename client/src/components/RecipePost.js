@@ -111,7 +111,7 @@ function RecipePost(props) {
       />
       <CardMedia
         className={classes.media}
-        image={process.env.PUBLIC_URL + '/images/' + props.image}
+        image={props.image}
         title="Paella dish"
       />
       <CardContent>

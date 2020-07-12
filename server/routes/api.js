@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+var cloudinary = require('cloudinary').v2;
 
 const User = require('../models/user');
 const RP = require('../models/recipePost');
 const upload = require('../multer/multer');
+
 
 
 // Retrieve recipe posts from DB
@@ -30,51 +32,53 @@ router.post('/posts', (req, res) => {
 
 // Post new recipe post to DB
 router.post('/save', upload.single('imageData'), (req, res) => {
-    const title = req.body.title;
-    const body = req.body.body;
-    const ingr = req.body.ingredients;
-    const inst = req.body.instructions;
-    const email = req.user.email;
-    const firstName = req.user.firstName;
-    const lastName = req.user.lastName;
+    cloudinary.uploader.upload(req.file.path, function(err, result) {
+        if (err) req.json(err.message);
 
-    // Just store image name
-    const imageData = req.file.path.substr(req.file.path.lastIndexOf('\\')+1);
+        const title = req.body.title;
+        const body = req.body.body;
+        const ingr = req.body.ingredients;
+        const inst = req.body.instructions;
+        const email = req.user.email;
+        const firstName = req.user.firstName;
+        const lastName = req.user.lastName;
+        const imageData = req.body.image = result.secure_url;
 
-    const newRecipePost = new RP.RecipePost({
-        account: email,
-        accountName: firstName + ' ' + lastName,
-        title: title,
-        body: body,
-        ingredients: ingr,
-        instructions: inst,
-        imageData: imageData
-    });
+        const newRecipePost = new RP.RecipePost({
+            account: email,
+            accountName: firstName + ' ' + lastName,
+            title: title,
+            body: body,
+            ingredients: ingr,
+            instructions: inst,
+            imageData: imageData
+        });
 
-    // Saves Recipe Post
-    newRecipePost.save()
-        .then((result) => {
-            console.log(result);
-            res.json({
-                success: true,
-                msg: 'Your data has been saved'
+        // Saves Recipe Post
+        newRecipePost.save()
+            .then((result) => {
+                console.log(result);
+                res.json({
+                    success: true,
+                    msg: 'Your data has been saved'
+                })
             })
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json({msg: 'Internal server errors'});
-        });
-    
-    // Saves Recipe Post in User
-    User.findOne({email: req.user.email})
-        .then((user) => {
-           user.posts.push(newRecipePost);
-           user.save();
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(500).json({msg: 'Internal server errors'});
-        });
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json({msg: 'Internal server errors'});
+            });
+        
+        // Saves Recipe Post in User
+        User.findOne({email: req.user.email})
+            .then((user) => {
+            user.posts.push(newRecipePost);
+            user.save();
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({msg: 'Internal server errors'});
+            });
+    });
 });
 
 // Update Avatar Color

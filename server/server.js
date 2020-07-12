@@ -8,6 +8,7 @@ const api_routes = require('./routes/api');
 const auth_routes = require('./routes/auth');
 const passport = require('./passport/passport')
 
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -30,15 +31,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-console.log('1');
 // HTTP request logger
 app.use(morgan('tiny'));
 app.use('/api', api_routes);
 app.use('/auth', auth_routes);
-console.log('2');
 
 if(process.env.NODE_ENV === 'production') {
-    console.log('3');
+    console.log('Production');
     app.use(express.static('../client/build'));
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {

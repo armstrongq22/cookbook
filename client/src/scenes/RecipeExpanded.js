@@ -47,7 +47,7 @@ function RecipeExpanded(props) {
             <p>{recipe.body}</p>
             <p>{recipe.ingredients}</p>
             <p>{recipe.instructions}</p>
-            <img className={classes.image} src={process.env.PUBLIC_URL + '/images/' + recipe.imageData} alt='Recipe' />
+            <img className={classes.image} src={recipe.imageData} alt='Recipe' />
         </div>
     );
 };
