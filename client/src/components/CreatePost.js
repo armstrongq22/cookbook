@@ -167,9 +167,6 @@ function CreatePost(props) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <p>No backslash or spaces in file name</p>
-                    </Grid>
-                    <Grid item xs={12}>
                         <input
                             accept="image/*"
                             className={classes.input}
