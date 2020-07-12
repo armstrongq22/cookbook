@@ -1,4 +1,5 @@
 require('dotenv').config({ path: '../.env' });
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -33,5 +34,15 @@ app.use(morgan('tiny'));
 app.use('/api', api_routes);
 app.use('/auth', auth_routes);
 
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('../client/build'));
+    app.get('/*', function(req, res) {
+        res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {
+            if (err) {
+                res.status(500).send(err)
+            }
+        })
+    });
+}
 
 app.listen(PORT, console.log('Listening on ' + PORT));
