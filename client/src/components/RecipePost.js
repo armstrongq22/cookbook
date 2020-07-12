@@ -17,8 +17,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LaunchIcon from '@material-ui/icons/Launch';
 
-
-
+// Styles
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,

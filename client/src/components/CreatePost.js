@@ -4,21 +4,30 @@ import axios from 'axios';
 // Material-ui components
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 //Custom component
 import defaultImage from '../images/defaultImage.jpg';
 
 // Styles
-const inputBackground = {
-    backgroundColor: 'white'
-};
-
-const imagePreview = {
-    maxWidth:'100%', 
-    maxHeight:'500px'
-};
+const useStyles = makeStyles(() => ({
+    inputBackground: {
+        backgroundColor: 'white',
+    },
+    imagePreview: {
+        maxWidth:'100%', 
+        maxHeight:'500px',
+    },
+    input: {
+        display: 'none',
+    },
+}));
 
 function CreatePost(props) {
+    const classes = useStyles();
+
     // Input state
     const [newPost, setNewPost] = React.useState({
         title: '',
@@ -112,7 +121,7 @@ function CreatePost(props) {
                             fullWidth
                             onChange={handleChange}
                             value={newPost.title}
-                            style={inputBackground}
+                            className={classes.inputBackground}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -126,7 +135,7 @@ function CreatePost(props) {
                             fullWidth
                             onChange={handleChange}
                             value={newPost.body}
-                            style={inputBackground}
+                            className={classes.inputBackground}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -140,7 +149,7 @@ function CreatePost(props) {
                             fullWidth
                             onChange={handleChange}
                             value={newPost.ingredients}
-                            style={inputBackground}
+                            className={classes.inputBackground}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -154,8 +163,37 @@ function CreatePost(props) {
                             fullWidth
                             onChange={handleChange}
                             value={newPost.instructions}
-                            style={inputBackground}
+                            className={classes.inputBackground}
                         />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>No backslash or spaces in photo name</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="contained-button-file"
+                            multiple
+                            type="file"
+                            onChange={handleImageChange}
+                        />
+                        <label htmlFor="contained-button-file">
+                            <Button
+                                variant="contained"
+                                color="default"
+                                component="span"
+                                className={classes.button}
+                                startIcon={<CloudUploadIcon />}
+                            >
+                                Upload
+                            </Button>
+                        </label>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button variant="contained" color="primary" type="submit">
+                            Submit
+                        </Button>
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
@@ -163,11 +201,9 @@ function CreatePost(props) {
                         src={newPreviewImage} 
                         required 
                         alt="" 
-                        style={imagePreview}
+                        className={classes.imagePreview}
                     />
                 </Grid>
-                <input type='file' onChange={handleImageChange} />
-                <button>Submit</button>
             </Grid>
         </form>
     );

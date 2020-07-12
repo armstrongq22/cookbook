@@ -3,10 +3,29 @@ import axios from 'axios';
 import {CirclePicker} from 'react-color';
 import {useHistory} from 'react-router-dom';
 
+// Material-ui components
+import { makeStyles } from '@material-ui/core/styles';
+
 // Custom Components
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 
+// Styles
+const useStyles = makeStyles(() => ({
+    header: {
+      textAlign: 'center',
+      '& h1': {
+        color: '#3f51b5',
+      }
+    },
+    container: {
+        margin: '0 20px', 
+        marginBottom: '80px',
+      },
+  }));
+
 function Profile() {
+    const classes = useStyles();
+
     const [color, setColor] = React.useState();
     const [display, setDisplay] = React.useState(false);
     
@@ -45,9 +64,11 @@ function Profile() {
 
     if(!display) return null;
     return (
-        <div>
+        <div className={classes.container}>
             <PrimarySearchAppBar scene='Profile' />
-            <h1>Profile page</h1>
+            <div className={classes.header}>
+                <h1>User Profile</h1>
+            </div>
             <form onSubmit={handleSumbit}>
                 <CirclePicker 
                     color={color}

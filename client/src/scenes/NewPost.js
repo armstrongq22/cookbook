@@ -9,9 +9,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import CreatePost from '../components/CreatePost';
 
+// Styles
 const useStyles = makeStyles(() => ({
   header: {
     textAlign: 'center',
+    '& h1': {
+      color: '#3f51b5',
+    }
   },
   create: {
     padding: '0 5% 5%',
