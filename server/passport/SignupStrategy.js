@@ -9,7 +9,7 @@ const SignupStrategy = new Strategy({passReqToCallback: true, usernameField: 'em
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     
-    User.findOne({email: email}, function (err, user) {
+    User.findOne({email: email}).lean().exec((err, user) => {
         if(err) return done(err, null);
         if(user) return done('User already exists', null);
 
