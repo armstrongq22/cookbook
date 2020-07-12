@@ -40,6 +40,7 @@ router.post('/signup', (req, res, next) => {
             return res.json(user);
         });
     })(req, res, next);
+    return res.json('Get this?');
 });
 
 // Signin user
