@@ -29,12 +29,16 @@ app.use(express.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+console.log('1');
 // HTTP request logger
 app.use(morgan('tiny'));
 app.use('/api', api_routes);
 app.use('/auth', auth_routes);
+console.log('2');
 
 if(process.env.NODE_ENV === 'production') {
+    console.log('3');
     app.use(express.static('../client/build'));
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {

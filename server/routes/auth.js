@@ -20,12 +20,12 @@ router.post('/logout', (req, res) => {
 
 // Singup user
 router.post('/signup', (req, res, next) => {
-    
+    console.log('4');
     passport.authenticate('local-signup', function(error, user, info) {
         if(error) {
             return res.status(500).json({ message: error});
         };
-        
+        console.log('5');
         // Persistent Login
         req.logIn(user, (error) => {
             if(error) {
@@ -33,7 +33,7 @@ router.post('/signup', (req, res, next) => {
                     message: error
                 });
             }
-
+            console.log('6');
             // TODO: Don't send password with uer
             user.isAuthenticated = true;
             user.password = null;
