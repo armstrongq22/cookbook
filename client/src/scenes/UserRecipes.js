@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 // Custom components
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import DisplayPosts from '../components/DisplayPosts';
-import Footer from '../components/Footer';
 
 
 function UserRecipes() {
@@ -50,7 +49,6 @@ function UserRecipes() {
     <div style={{margin: '0 20px', marginBottom: '80px'}}>
       <PrimarySearchAppBar scene='UserRecipes' />
       <DisplayPosts scene='UserRecipes' posts={UserPosts} />
-      <Footer />
     </div>
   )
 }

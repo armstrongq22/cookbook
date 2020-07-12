@@ -5,7 +5,6 @@ import {useHistory} from 'react-router-dom';
 
 // Custom Components
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
-import Footer from '../components/Footer';
 
 function Profile() {
     const [color, setColor] = React.useState();
@@ -56,7 +55,6 @@ function Profile() {
                 />
                 <button>Submit</button>
             </form>
-            <Footer />
         </div>
     )
 };

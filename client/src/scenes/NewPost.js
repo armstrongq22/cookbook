@@ -2,13 +2,24 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
+// Material-ui components
+import { makeStyles } from '@material-ui/core/styles';
+
 // Custom components
 import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import CreatePost from '../components/CreatePost';
-// import Footer from '../components/Footer';
 
+const useStyles = makeStyles(() => ({
+  header: {
+    textAlign: 'center',
+  },
+  create: {
+    padding: '0 5% 5%',
+  },
+}));
 
 function NewPost() {
+    const classes = useStyles();
     const [display, setDisplay] = React.useState(false);
     
     const history = useHistory();
@@ -33,9 +44,12 @@ function NewPost() {
     return (
         <div>
             <PrimarySearchAppBar scene='NewPost' />
-            <h1>Create Post</h1>
-            <CreatePost refresh={goHome} />
-            {/* <Footer /> */}
+            <div className={classes.header}>
+              <h1>Create Post</h1>
+            </div>
+            <div className={classes.create}> 
+              <CreatePost refresh={goHome} />
+            </div>
         </div>
     );
 };

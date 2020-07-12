@@ -1,8 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 
+// Material-ui components
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+
 //Custom component
 import defaultImage from '../images/defaultImage.jpg';
+
+// Styles
+const inputBackground = {
+    backgroundColor: 'white'
+};
+
+const imagePreview = {
+    maxWidth:'100%', 
+    maxHeight:'500px'
+};
 
 function CreatePost(props) {
     // Input state
@@ -87,52 +101,74 @@ function CreatePost(props) {
 
     return (
         <form onSubmit={submit}>
-            <div className='form-input'>
-                <input 
-                    type='text'
-                    name='title'
-                    placeholder='title'
-                    value={newPost.title}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div className='form-input'>
-                <textarea 
-                    name='body'
-                    placeholder='body'
-                    cols='30'
-                    rows='5'
-                    value={newPost.body}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div className='form-input'>
-                <textarea 
-                    name='ingredients'
-                    placeholder='ingredients'
-                    cols='30'
-                    rows='10'
-                    value={newPost.ingredients}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div className='form-input'>
-                <textarea 
-                    name='instructions'
-                    placeholder='instructions'
-                    cols='30'
-                    rows='10'
-                    value={newPost.instructions}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <input type='file' onChange={handleImageChange} />
-            <img src={newPreviewImage} required width='100px' height='100px' alt="" />
-            <button>Submit</button>
+            <Grid container spacing={2}>
+                <Grid container item xs={6} spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            name="title"
+                            label="Title"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            onChange={handleChange}
+                            value={newPost.title}
+                            style={inputBackground}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="body"
+                            label="Description"
+                            variant="outlined"
+                            multiline
+                            rows='5'
+                            required
+                            fullWidth
+                            onChange={handleChange}
+                            value={newPost.body}
+                            style={inputBackground}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="ingredients"
+                            label="Ingredients"
+                            variant="outlined"
+                            multiline
+                            rows='5'
+                            required
+                            fullWidth
+                            onChange={handleChange}
+                            value={newPost.ingredients}
+                            style={inputBackground}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            name="instructions"
+                            label="Instructions"
+                            variant="outlined"
+                            multiline
+                            rows='10'
+                            required
+                            fullWidth
+                            onChange={handleChange}
+                            value={newPost.instructions}
+                            style={inputBackground}
+                        />
+                    </Grid>
+                </Grid>
+                <Grid item xs={6}>
+                    <img 
+                        src={newPreviewImage} 
+                        required 
+                        alt="" 
+                        style={imagePreview}
+                    />
+                </Grid>
+                <input type='file' onChange={handleImageChange} />
+                <button>Submit</button>
+            </Grid>
         </form>
     );
 };
