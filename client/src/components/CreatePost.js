@@ -111,7 +111,7 @@ function CreatePost(props) {
     return (
         <form onSubmit={submit}>
             <Grid container spacing={2}>
-                <Grid container item xs={6} spacing={2}>
+                <Grid container item xs={12} sm={6} spacing={2}>
                     <Grid item xs={12}>
                         <TextField
                             name="title"
@@ -167,7 +167,7 @@ function CreatePost(props) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <p>No backslash or spaces in photo name</p>
+                        <p>No backslash or spaces in file name</p>
                     </Grid>
                     <Grid item xs={12}>
                         <input

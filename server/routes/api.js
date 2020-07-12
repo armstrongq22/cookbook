@@ -79,7 +79,6 @@ router.post('/save', upload.single('imageData'), (req, res) => {
 
 // Update Avatar Color
 router.post('/avatarColor', (req, res) => {
-    console.log(req.body.newColor);
     User.updateOne({email: req.user.email}, { 
         $set: {
             avatarColor: req.body.newColor 

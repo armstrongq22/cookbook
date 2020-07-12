@@ -67,4 +67,9 @@ router.post('/signin', (req, res, next) => {
     })(req, res, next);
 });
 
+// Retrieve user details
+router.get('/user', (req, res) => {
+    return res.json(req.user);
+});
+
 module.exports = router;
